@@ -7,7 +7,6 @@ import (
 )
 
 
-
 func (cnc *CNC) worker(bot *Bot) {
 	defer bot.conn.Close()
 
