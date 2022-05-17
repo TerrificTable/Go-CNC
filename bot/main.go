@@ -1,5 +1,6 @@
 package main
 
+// Imports
 import (
 	"fmt"
 	"github.com/shirou/gopsutil/host"
