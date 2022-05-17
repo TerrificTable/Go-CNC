@@ -7,11 +7,15 @@ You can see whos logged into the cnc<br>
 You can see all online bots<br>
 
 <br>
-Compile Bot:<br>
-  - go build ./bot.go<br>
-  - chmod +x bot<br>
-  - ./bot<br>
+```
+Compile Bot:
+    - go build ./bot.go
+    - chmod +x bot
+    - ./bot
+```
+<br>
 
-
+```
 Compile CNC:
-  - Use GoLand to Compile / Run<br>
+    - Use GoLand to Compile / Run<br>
+```
