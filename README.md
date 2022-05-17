@@ -8,9 +8,10 @@ You can see all online bots<br>
 
 <br>
 Compile Bot:
-  - go build ./bot.go
-  - chmod +x bot
-  - ./bot
+  - go build ./bot.go<br>
+  - chmod +x bot<br>
+  - ./bot<br>
+
 
 Compile CNC:
-  - Use GoLand to Compile / Run
+  - Use GoLand to Compile / Run<br>
