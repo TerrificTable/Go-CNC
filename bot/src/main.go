@@ -24,7 +24,6 @@ type Bot struct {
 
 func main() {
 	cmds := BotCmd {}
-
 	cmd := Command {
 		[]string{
 			"test",
