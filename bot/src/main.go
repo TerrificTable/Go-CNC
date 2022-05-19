@@ -1,38 +1,47 @@
 package main
 
-// Imports
 import (
 	"fmt"
-	"github.com/shirou/gopsutil/host"
 	"net"
-	"strings"
-	"time"
 )
 
+type Command struct {
+	Names		[]string
+	Values		[]string
+	function 	func(conn net.Conn)
+}
+
+type BotCmd struct {
+	Commands	[]*Command
+}
+
+type Bot struct {
+	Host     	string
+	Port     	int
+	CmdList 	BotCmd
+}
 
 
 func main() {
-	Host := "127.0.0.1"
-	Port := 7331
+	cmds := BotCmd {}
 
-	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%d", Host, Port))
-	if err != nil { fmt.Println(err); time.Sleep(1); main() }
-
-	hostStat, _ := host.Info()
-	conn.Write([]byte(hostStat.KernelArch))
-	conn.Write([]byte(hostStat.Hostname))
-
-	for {
-		var buffer [1024]byte
-		n, err := conn.Read(buffer[0:])
-		if err != nil { fmt.Println(err) }
-
-		line := strings.TrimSpace(string(buffer[0:n]))
-
-		if line == "exit" || line == "quit" || line == ".q" {
-			fmt.Println("Killed")
-			conn.Close()
-			return
-		}
+	cmd := Command {
+		[]string{
+			"test",
+		},
+		[]string{ },
+		func(conn net.Conn) {
+			fmt.Println("TEST!")
+		},
 	}
+
+	cmds.Commands = append(cmds.Commands, &cmd)
+
+	bot := Bot {
+		Host: "127.0.0.1",
+		Port: 6298,
+		CmdList: cmds,
+	}
+
+	bot.Start()
 }
