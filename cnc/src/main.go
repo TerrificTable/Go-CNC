@@ -4,7 +4,6 @@ import (
 	"net"
 )
 
-
 type Client struct {
 	username 	string
 	password 	string
@@ -37,7 +36,7 @@ func main() {
 		Port: 1337,
 		BotPort: 7331,
 		Users: []string {
-			"admin:admin",
+			"admin:terrific",
 			"guest:guest",
 		},
 	}
