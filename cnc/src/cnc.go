@@ -249,3 +249,5 @@ func (cnc *CNC) Start() {
 		go cnc.connection(client)
 	}
 }
+
+// Did i do something here?
