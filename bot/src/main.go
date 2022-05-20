@@ -8,7 +8,7 @@ import (
 type Command struct {
 	Names		[]string
 	Values		[]string
-	function 	func(conn net.Conn)
+	function 	func(conn net.Conn, args []string)
 }
 
 type BotCmd struct {
@@ -23,23 +23,24 @@ type Bot struct {
 
 
 func main() {
-	cmds := BotCmd {}
+	commands := BotCmd {}
 	cmd := Command {
 		[]string{
 			"test",
 		},
 		[]string{ },
-		func(conn net.Conn) {
+		func(conn net.Conn, args []string) {
 			fmt.Println("TEST!")
+			_ = fmt.Sprintf("Args: %s", args)
 		},
 	}
 
-	cmds.Commands = append(cmds.Commands, &cmd)
+	commands.Commands = append(commands.Commands, &cmd)
 
 	bot := Bot {
-		Host: "127.0.0.1",
-		Port: 6298,
-		CmdList: cmds,
+		Host:    "127.0.0.1",
+		Port:    6298,
+		CmdList: commands,
 	}
 
 	bot.Start()
